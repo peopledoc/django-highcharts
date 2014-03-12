@@ -6,7 +6,7 @@ register = template.Library()
 # Default settings
 HIGHCHARTS_DEFAULTS = {
     'jquery_url': '//code.jquery.com/jquery.min.js',
-    'highcharts_url': 'http://code.highcharts.com/highcharts.js',
+    'highcharts_url': '//code.highcharts.com/highcharts.js',
 }
 
 # Start with a copy of default settings
