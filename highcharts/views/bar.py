@@ -3,18 +3,8 @@ from highcharts.views.common import HighChartsDualAxisView
 
 
 class HighChartsBarView(HighChartsDualAxisView, View):
+
     chart_type = 'bar'
-    categories = []
-
-    def get_data(self):
-        data = super(HighChartsBarView, self).get_data()
-        data['xAxis']['categories'] = self.categories
-        data['series'] = self.series
-        return data
-
-    @property
-    def series(self):
-        return []
 
 
 class HighChartsStackedView(HighChartsBarView):
@@ -31,4 +21,5 @@ class HighChartsStackedView(HighChartsBarView):
 
 
 class HighChartsColumnView(HighChartsBarView):
+
     chart_type = 'column'

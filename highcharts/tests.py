@@ -14,8 +14,8 @@ class EmptyChart(HighChartsLineView):
 class BarDataMixin(object):
     title = u'My Mock Title'
     subtitle = u'My subtitle'
-    categories = ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-    y_axis_title = 'Fruit eaten'
+    x_axis_categories = ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+    y_axis = [{'title': {'text': 'Fruit eaten'}}]
     series = [
         {"name": 'Jane', "data": [5, 3, 4, 7, 2]},
         {"name": 'John', "data": [2, 2, 3, 2, 1]},
@@ -37,7 +37,7 @@ class MockHighChartsColumnView(BarDataMixin, HighChartsColumnView):
 
 class MockHighChartsLineView(HighChartsLineView):
     title = u"My Line title"
-    categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    x_axis_categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     @property
@@ -63,7 +63,7 @@ class MockHighChartsLineView(HighChartsLineView):
 
 class MockHighChartsAreaView(HighChartsAreaView):
     title = 'US and USSR nuclear stockpiles'
-    y_axis_title = 'Nuclear weapon states'
+    y_axis = [{'title': {'text': 'Nuclear weapon states'}}]
     tooltip_point_format = '{series.name} produced <b>{point.y:,.0f}</b><br/>'\
                            'warheads in {point.x}'
     plot_options = {
@@ -215,7 +215,7 @@ class BarChartTest(ResponseTestToolkitSolo):
         "Test Y Axis content"
         self.assertIn('yAxis', self.data)
         y_axis = self.data['yAxis']
-        self.assertEquals(y_axis, {"title": {"text": 'Fruit eaten'}})
+        self.assertEquals(y_axis, [{"title": {"text": 'Fruit eaten'}}])
 
     def test_series(self):
         "Test data from series"
