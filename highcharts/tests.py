@@ -364,3 +364,10 @@ class PieChartTest(ResponseTestToolkitSolo):
     def test_char_type(self):
         "Test chart type"
         self.assertEquals(self.data['chart'].get('type', None), 'pie')
+
+    def test_series(self):
+        "Test data from series"
+        self.assertIn('series', self.data)
+        series = self.data['series']
+        self.assertTrue(isinstance(series, (list, tuple, set)))
+        self.assertEquals(len(series), 1)

@@ -9,7 +9,9 @@ class HighChartsPieView(HighChartsBasicView, View):
     chart_type = 'pie'
 
     def get_data(self):
-        return super(HighChartsPieView, self).get_data()
+        data = super(HighChartsPieView, self).get_data()
+        data['series'] = self.series
+        return data
 
     @property
     def series(self):
