@@ -4,6 +4,7 @@ from highcharts.views.bar import HighChartsBarView, HighChartsStackedView
 from highcharts.views.bar import HighChartsColumnView
 from highcharts.views.line import HighChartsLineView
 from highcharts.views.area import HighChartsAreaView
+from highcharts.views.pie import HighChartsPieView
 from django.test import RequestFactory
 
 
@@ -23,6 +24,21 @@ class BarDataMixin(object):
     ]
 
 
+class PieDataMixin(object):
+    title = u'My Pie Chart'
+    subtitle = u'My subtitle'
+    series = [
+        {
+            "name": 'Poll',
+            "data": [
+                ["Option 1", 10],
+                ["Option 2", 30],
+                ["Option 3", 60],
+            ]
+        }
+    ]
+
+
 class MockHighChartsBarView(BarDataMixin, HighChartsBarView):
     pass
 
@@ -32,6 +48,10 @@ class MockHighChartsStackedView(BarDataMixin, HighChartsStackedView):
 
 
 class MockHighChartsColumnView(BarDataMixin, HighChartsColumnView):
+    pass
+
+
+class MockHighChartsPieView(PieDataMixin, HighChartsPieView):
     pass
 
 
@@ -332,3 +352,15 @@ class AreaChartTest(ResponseTestToolkitSolo):
         "plot options is just dict dumping"
         plot_options = self.data['plotOptions']
         self.assertEquals(plot_options, MockHighChartsAreaView.plot_options)
+
+
+class PieChartTest(ResponseTestToolkitSolo):
+    klass = MockHighChartsPieView
+
+    def test_client(self):
+        "Test title parameter"
+        self.assertEquals(self.data['title'], {'text': u'My Pie Chart'})
+
+    def test_char_type(self):
+        "Test chart type"
+        self.assertEquals(self.data['chart'].get('type', None), 'pie')
