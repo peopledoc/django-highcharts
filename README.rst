@@ -1,3 +1,5 @@
+**WARNING: this project is not maintained**
+
 #################
 Django Highcharts
 #################
